@@ -30,7 +30,7 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
     - name: The job has failed
-      uses: SuperSixInsurance/azuredevops-bug-action@1.1
+      uses: stefanstranger/azuredevops-bug-action@1.1
       if: failure()
       with:
           OrganizationName: "SuperSix"
