@@ -38,11 +38,11 @@ jobs:
       run: mvn -B package --file 'pom.xml'
 
     - name: Login to GitHub Container Registry
-      uses: azure/docker-login@v1
+      uses: docker/login-action@v1
       with:
-        login-server: openhackkv74imm5acr.azurecr.io
-        username: ${{ secrets.REPOSITORY_OWNER }}
-        password: ${{ secrets.ACR_TOKEN }}
+        registry: openhackkv74imm5acr.azurecr.io
+        username: 'ca77c675-8a6f-4d50-8351-4f763afc72c2'
+        password: 'slA7U3xgHzVE~rG6A6Y~un~x4mIA7~VsN.'
     - name: Build and push
       id: docker_build
       uses: docker/build-push-action@v2
