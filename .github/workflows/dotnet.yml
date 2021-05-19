@@ -47,6 +47,10 @@ jobs:
         login-server: openhackkv74imm5acr.azurecr.io
         username: ${{ secrets.REPOSITORY_OWNER }}
         password: ${{ secrets.ACR_TOKEN }}
+    - name: Log in with Azure
+      uses: azure/login@v1
+      with:
+        creds: '${{ secrets.AZURE_CREDENTIALS }}'
     - name: Build_PushDocker
       run: az acr build --image "${{ env.repository-name }}:${{ github.run_number }}" --registry ${{ env.acr-name }} --file Dockerfile .
       
