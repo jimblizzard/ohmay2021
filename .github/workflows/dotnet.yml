@@ -48,7 +48,7 @@ jobs:
         username: ${{ secrets.REPOSITORY_OWNER }}
         password: ${{ secrets.ACR_TOKEN }}
     - name: Build_PushDocker
-      run: az acr build --image "${{ env.repository-name }}:${{ github.run_number }}" --registry ${{ env.acr-name }} --file Dockerfile
+      run: az acr build --image "${{ env.repository-name }}:${{ github.run_number }}" --registry ${{ env.acr-name }} --file Dockerfile .
       
     - name: Image digest
       run: echo ${{ steps.Build_PushDocker.outputs.digest }}        
