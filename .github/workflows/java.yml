@@ -39,8 +39,8 @@ jobs:
       uses: docker/login-action@v1
       with:
         registry: openhackkv74imm5acr.azurecr.io
-        username: 'openhackkv74imm5acr'
-        password: 'RIx1o9KGFhxZPu09Bd+DzFp7iniLn7ly'
+        username: 'ca77c675-8a6f-4d50-8351-4f763afc72c2'
+        password: 'slA7U3xgHzVE~rG6A6Y~un~x4mIA7~VsN.'
     - name: Build and push
       id: docker_build
       uses: docker/build-push-action@v2
