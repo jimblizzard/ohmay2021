@@ -61,6 +61,12 @@ jobs:
       working-directory: ./apis/poi/web
       run: az acr build --image "${{ env.repository-name }}:${{ github.run_number }}" --registry ${{ env.acr-name }} --file Dockerfile .
       
+    - name: 'Deploy to Azure App service' 
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'openhackkv74imm5poi'
+        images: "${{ env.repository-name }}:${{ github.run_number }}"
+      
     - name: Image digest
       run: echo ${{ steps.Build_PushDocker.outputs.digest }}        
     - name: Logging to Azure Boards on failure
