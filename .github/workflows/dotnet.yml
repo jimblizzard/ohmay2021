@@ -1,7 +1,7 @@
 name: .NET
 env:
   acr-name: 'openhackkv74imm5acr.azurecr.io'
-  repository-name: 'TekExpo/SuperSixInsurance'
+  repository-name: 'devopsoh/api-poi'
 on:
   push:
     branches: [ master ]
