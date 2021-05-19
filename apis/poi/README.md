@@ -1,5 +1,5 @@
 
-# POI Service for TEam 4
+# POI Service for Team 4
 
 ## Overview
 
