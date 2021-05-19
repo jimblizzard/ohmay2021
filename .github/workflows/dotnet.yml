@@ -32,9 +32,17 @@ jobs:
         login-server: openhackkv74imm5acr.azurecr.io
         username: ${{ secrets.REPOSITORY_OWNER }}
         password: ${{ secrets.ACR_TOKEN }}
- 
+    - name: Build and push
+      id: docker_build
+      uses: docker/build-push-action@v2
+      with:
+        push: true
+        tags: devopsoh/api-poi:build2
+        file: /web/Dockerfile
+    - name: Image digest
+      run: echo ${{ steps.docker_build.outputs.digest }}
         
-    - name: The job has failed
+    - name: Logging to Azure Boards on failure
       uses: stefanstranger/azuredevops-bug-action@1.1  
       if: failure()
       with:
