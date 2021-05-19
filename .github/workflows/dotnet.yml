@@ -51,6 +51,12 @@ jobs:
       uses: azure/login@v1
       with:
         creds: '${{ secrets.AZURE_CREDENTIALS }}'
+    - name: Debug Check path
+      run: |
+        pwd
+        ls -la
+      shell: bash
+    
     - name: Build_PushDocker
       run: az acr build --image "${{ env.repository-name }}:${{ github.run_number }}" --registry ${{ env.acr-name }} --file Dockerfile .
       
