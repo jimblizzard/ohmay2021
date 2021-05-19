@@ -48,9 +48,11 @@ jobs:
         push: true
         tags: openhackkv74imm5acr.azurecr.io/devopsoh/api-user-java:${{ github.run_number }}
         file: /apis/user-java/Dockerfile
-    - name: Image digest
-      run: echo ${{ steps.docker_build.outputs.digest }}
-        
+    - name: Azure WebApp
+      uses: Azure/webapps-deploy@v2
+      with:
+        app-name: openhackkv74imm5userjava
+        images: openhackkv74imm5acr.azurecr.io/devopsoh/api-user-java:${{ github.run_number }}
     - name: Logging to Azure Boards on failure
       uses: stefanstranger/azuredevops-bug-action@1.1  
       if: failure()
