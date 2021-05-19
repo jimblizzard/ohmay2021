@@ -17,8 +17,7 @@ jobs:
     defaults:
           run:
             working-directory: ./apis/poi
-    steps:
-      
+    steps:      
     - uses: actions/checkout@v2
     - name: Setup .NET      
       uses: actions/setup-dotnet@v1
@@ -27,6 +26,20 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --no-restore	  
     - name: Test
       run: dotnet test --no-build --verbosity normal
+    - name: The job has failed
+      uses: SuperSix/azuredevops-bug-action@1.1
+      if: failure()
+      with:
+          OrganizationName: "SuperSix"
+          PAT: "PAT"
+          ProjectName: "SuperSixInsurance"
+          AreaPath: "SuperSixInsurance\\Automation"
+          IterationPath: "Sprint1"
+          GithubToken: "GithubToken"
+          WorkflowFileName: "dotnet.yml"
+      env:
+            PAT: ${{ secrets.PAT}}
+            GithubToken: ${{ secrets.githubtoken}}
