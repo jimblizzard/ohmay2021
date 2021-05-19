@@ -27,7 +27,7 @@ jobs:
     steps:      
 
     - name: Login to GitHub Container Registry
-      uses: azure/login-action@v1
+      uses: azure/docker-login@v1
       with:
         login-server: openhackkv74imm5acr.azurecr.io
         username: ${{ secrets.REPOSITORY_OWNER }}
