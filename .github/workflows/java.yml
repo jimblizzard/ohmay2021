@@ -12,7 +12,14 @@ on:
     branches: [ master ]
     paths:
     - 'apis/user-java/**'
-
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'     
+        required: true
+        default: 'warning'
+      tags:
+        description: 'Test scenario tags'  
 jobs:
   build:
 
@@ -27,3 +34,34 @@ jobs:
         distribution: 'adopt'
     - name: Build with Maven
       run: mvn -B package --file 'apis/user-java/pom.xml'
+
+    - name: Login to GitHub Container Registry
+      uses: azure/docker-login@v1
+      with:
+        login-server: openhackkv74imm5acr.azurecr.io
+        username: ${{ secrets.REPOSITORY_OWNER }}
+        password: ${{ secrets.ACR_TOKEN }}
+    - name: Build and push
+      id: docker_build
+      uses: docker/build-push-action@v2
+      with:
+        push: true
+        tags: devopsoh/api-trips:ch4trial1
+        file: /apis/trips/Dockerfile
+    - name: Image digest
+      run: echo ${{ steps.docker_build.outputs.digest }}
+        
+    - name: Logging to Azure Boards on failure
+      uses: stefanstranger/azuredevops-bug-action@1.1  
+      if: failure()
+      with:
+          OrganizationName: "SuperSix"
+          PAT: "PAT"
+          ProjectName: "SuperSixInsurance"
+          AreaPath: "SuperSixInsurance\\DeploymentArea"
+          IterationPath: "SuperSixInsurance"
+          GithubToken: "GithubToken"
+          WorkflowFileName: "dotnet.yml"
+      env:
+            PAT: ${{ secrets.PAT}}
+            GithubToken: ${{ secrets.githubtoken}}      
