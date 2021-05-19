@@ -48,6 +48,10 @@ jobs:
         push: true
         tags: openhackkv74imm5acr.azurecr.io/devopsoh/api-user-java:${{ github.run_number }}
         file: /apis/user-java/Dockerfile
+    - name: Log in with Azure
+      uses: azure/login@v1
+      with:
+        creds: '${{ secrets.AZURE_CREDENTIALS }}'
     - name: Azure WebApp
       uses: Azure/webapps-deploy@v2
       with:
