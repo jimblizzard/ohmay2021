@@ -1,5 +1,7 @@
 name: .NET
-
+env:
+  acr-name: 'openhackkv74imm5acr.azurecr.io'
+  repository-name: 'TekExpo/SuperSixInsurance'
 on:
   push:
     branches: [ master ]
@@ -16,7 +18,8 @@ on:
         required: true
         default: 'warning'
       tags:
-        description: 'Test scenario tags'  
+        description: 'Test scenario tags'
+  
 jobs:
   build:
 
@@ -24,6 +27,7 @@ jobs:
     defaults:
           run:
             working-directory: ./apis/poi
+  
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET      
@@ -43,17 +47,11 @@ jobs:
         login-server: openhackkv74imm5acr.azurecr.io
         username: ${{ secrets.REPOSITORY_OWNER }}
         password: ${{ secrets.ACR_TOKEN }}
-    - name: Build and push
-      id: docker_build
-      uses: docker/build-push-action@v2
-      with:
-        push: true
-        tags: devopsoh/api-poi:build2
-        context: ./web
-
+    - name: Build_PushDocker
+      run: az acr build --image "${{ env.repository-name }}:${{ github.run_number }}" --registry ${{ env.acr-name }} --file Dockerfile
+      
     - name: Image digest
-      run: echo ${{ steps.docker_build.outputs.digest }}
-        
+      run: echo ${{ steps.Build_PushDocker.outputs.digest }}        
     - name: Logging to Azure Boards on failure
       uses: stefanstranger/azuredevops-bug-action@1.1  
       if: failure()
