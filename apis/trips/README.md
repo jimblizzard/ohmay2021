@@ -1,4 +1,4 @@
-# Overview for Team #4
+# Overview
 
 This is the Trips API for the MyDriving service.
 
