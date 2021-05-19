@@ -35,7 +35,7 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
     - name: Build with Maven
-      run: mvn -B package --file 'apis/user-java/pom.xml'
+      run: mvn -B package --file 'pom.xml'
 
     - name: Login to GitHub Container Registry
       uses: azure/docker-login@v1
