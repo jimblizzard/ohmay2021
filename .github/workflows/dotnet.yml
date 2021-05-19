@@ -36,7 +36,7 @@ jobs:
           OrganizationName: "SuperSix"
           PAT: "PAT"
           ProjectName: "SuperSixInsurance"
-          AreaPath: "SuperSixInsurance\\Automation"
+          AreaPath: "SuperSixInsurance\\DeploymentArea"
           IterationPath: "Sprint1"
           GithubToken: "GithubToken"
           WorkflowFileName: "dotnet.yml"
