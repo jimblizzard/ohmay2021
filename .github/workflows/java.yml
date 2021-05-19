@@ -46,8 +46,8 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: devopsoh/api-trips:ch4trial1
-        file: /apis/trips/Dockerfile
+        tags: devopsoh/api-user-java:ch4trial1
+        file: /apis/user-java/Dockerfile
     - name: Image digest
       run: echo ${{ steps.docker_build.outputs.digest }}
         
