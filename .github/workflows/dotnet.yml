@@ -88,8 +88,11 @@ jobs:
     - name: Build_PushDocker
       working-directory: ./apis/poi/web/
       run: az acr build --image "${{ env.repository-name }}:${{ github.run_number }}" --registry ${{ env.acr-name }} --file Dockerfile .
-      
-    
+    - name: Debug Check path
+      run: |
+        pwd
+        ls -la
+      shell: bash 
       
     - name: Image digest
       run: echo ${{ steps.Build_PushDocker.outputs.digest }} 
