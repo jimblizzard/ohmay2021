@@ -171,7 +171,7 @@ jobs:
       with:
         creds: '${{ secrets.AZURE_CREDENTIALS }}'
     - name: Swap Slot service
-      run: az webapp deployment slot swap  -g ${{ env.res-group }} -n ${{ env.appsvc-name }} --slot staging --target-slot production
+      run: az webapp deployment slot swap -g ${{ env.res-group }} -n ${{ env.appsvc-name }} --slot staging --target-slot production
     - name: Logging to Azure Boards on failure
       uses: stefanstranger/azuredevops-bug-action@1.1  
       if: failure()
@@ -212,6 +212,31 @@ jobs:
             PAT: ${{ secrets.PAT}}
             GithubToken: ${{ secrets.githubtoken}}
 
+  clear-traffic-to-staging:
+    runs-on: ubuntu-latest
+    needs: [validating-prod]
+    steps:
+    - name: Log in with Azure
+      uses: azure/login@v1
+      with:
+        creds: '${{ secrets.AZURE_CREDENTIALS }}'
+    - name: Clear staging traffic
+      run: az webapp traffic-routing clear -g ${{ env.res-group }} -n ${{ env.appsvc-name }} 
+    - name: Logging to Azure Boards on failure
+      uses: stefanstranger/azuredevops-bug-action@1.1  
+      if: failure()
+      with:
+          OrganizationName: "SuperSix"
+          PAT: "PAT"
+          ProjectName: "SuperSixInsurance"
+          AreaPath: "SuperSixInsurance\\DeploymentArea"
+          IterationPath: "SuperSixInsurance"
+          GithubToken: "GithubToken"
+          WorkflowFileName: "dotnet.yml"
+      env:
+            PAT: ${{ secrets.PAT}}
+            GithubToken: ${{ secrets.githubtoken}}
+            
   rollback-prod-slot:
     runs-on: ubuntu-latest
     needs: [validating-prod]
