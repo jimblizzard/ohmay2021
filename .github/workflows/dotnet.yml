@@ -32,8 +32,7 @@ jobs:
     
     steps:
     - name: Debug Check path
-    run: |
+      run: |
         pwd
         ls -la
         shell: bash
-      shell: bash
