@@ -120,8 +120,8 @@ jobs:
       with:
         app-name: 'openhackkv74imm5poi'
         images: "${{ env.repository-name }}:${{ github.run_number }}"
+        slot-name: 'staging'
     - name: Restart App service
-      working-directory: ./apis/poi/web
       run: az webapp start -g ${{ env.res-group }} -n ${{ env.appsvc-name }} --slot staging 
     - name: Logging to Azure Boards on failure
       uses: stefanstranger/azuredevops-bug-action@1.1  
