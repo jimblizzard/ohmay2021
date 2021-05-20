@@ -2,8 +2,8 @@ name: .NET
 env:
   acr-name: 'openhackkv74imm5acr.azurecr.io'
   repository-name: 'devopsoh/api-poi'
-  res-group: 
-  appsvc-name:
+  res-group: 'openhackkv74imm5rg'
+  appsvc-name: 'openhackkv74imm5poi'
   working-directory: ./apis/poi/
 on:
   push:
