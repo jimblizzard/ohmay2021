@@ -70,17 +70,17 @@ jobs:
 
     
     steps:
-    - name: Debug Check path
-      run: |
-        pwd
-        ls -la
-      shell: bash
+
       
     - name: Download build    
       uses: actions/download-artifact@v2
       with:
         name: build
-        
+    - name: Debug Check path
+      run: |
+        pwd
+        ls -la
+      shell: bash        
     - name: Login to Azure Container Registry
       uses: azure/docker-login@v1
       with:
