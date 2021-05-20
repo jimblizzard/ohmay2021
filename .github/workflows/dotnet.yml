@@ -48,7 +48,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: build
-        path: ${{ env.appsvc-name }}web/
+        path: ${{ env.working-directory }}web/
     - name: Logging to Azure Boards on failure
       uses: stefanstranger/azuredevops-bug-action@1.1  
       if: failure()
