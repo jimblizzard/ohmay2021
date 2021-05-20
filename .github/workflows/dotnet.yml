@@ -137,3 +137,29 @@ jobs:
       env:
             PAT: ${{ secrets.PAT}}
             GithubToken: ${{ secrets.githubtoken}}
+            
+              
+  validating-Stage:
+    runs-on: ubuntu-latest
+    needs: [deploy-to-Stage]
+    steps:
+    - name: URL Health Check
+      uses: Jtalk/url-health-check-action@v1.5
+      with:
+        url: https://openhackkv74imm5poi-staging.azurewebsites.net/api/healthcheck/poi
+        max-attempts: 8
+        retry-delay: 15s
+    - name: Logging to Azure Boards on failure
+      uses: stefanstranger/azuredevops-bug-action@1.1  
+      if: failure()
+      with:
+          OrganizationName: "SuperSix"
+          PAT: "PAT"
+          ProjectName: "SuperSixInsurance"
+          AreaPath: "SuperSixInsurance\\DeploymentArea"
+          IterationPath: "SuperSixInsurance"
+          GithubToken: "GithubToken"
+          WorkflowFileName: "dotnet.yml"
+      env:
+            PAT: ${{ secrets.PAT}}
+            GithubToken: ${{ secrets.githubtoken}}
